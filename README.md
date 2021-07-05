@@ -1,3 +1,3 @@
 # steam-visuals
 
-Generate steam svgs based on your profile
+## Generate **steam** svgs based on your profile
