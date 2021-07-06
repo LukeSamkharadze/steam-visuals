@@ -11,24 +11,24 @@ jobs:
     - name: Docker login
       uses: docker/login-action@master
       with:
-        username: ${{ secrets.BOT_USER }}
-        password: ${{ secrets.BOT_PASSWORD }} 
+        username: ${{secrets.BOT_USER}}
+        password: ${{secrets.BOT_PASSWORD}} 
       
     - name: Docker build
-      run: docker build . -t ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+      run: docker build . -t ${{secrets.GITHUB_BOT_USER}}/steam-visuals
       
     - name: Docker push
-      run: docker push ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+      run: docker push ${{secrets.GITHUB_BOT_USER}}/steam-visuals
       
     - name: Replace deployed
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.HOST }}
-        port: ${{ secrets.HOST_PORT }}
-        username: ${{ secrets.HOST_USER }}
-        password: ${{ secrets.HOST_PASSWORD }}
+        host: ${{secrets.HOST}}
+        port: ${{secrets.HOST_PORT}}
+        username: ${{secrets.HOST_USER}}
+        password: ${{secrets.HOST_PASSWORD}}
         script: |
           cd /app
           docker-compose down
-          docker rmi ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+          docker rmi ${{secrets.GITHUB_BOT_USER}}/steam-visuals
           docker-compose up --detach
