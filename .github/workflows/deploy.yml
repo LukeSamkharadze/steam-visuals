@@ -11,7 +11,6 @@ jobs:
     - name: Docker login
       uses: docker/login-action@master
       with:
-        registry: ghcr.io
         username: ${{ secrets.BOT_USER }}
         password: ${{ secrets.BOT_PASSWORD }} 
       
@@ -19,7 +18,7 @@ jobs:
       run: docker build .
       
     - name: Docker push
-      run: docker push ghcr.io/${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+      run: docker push ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
       
     - name: Replace deployed
       uses: appleboy/ssh-action@master
@@ -31,5 +30,5 @@ jobs:
         script: |
           cd /app
           docker-compose down
-          docker rmi ghcr.io/${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+          docker rmi ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
           docker-compose up --detach
