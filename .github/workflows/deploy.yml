@@ -1,34 +1,34 @@
 name: Deploy
-on: 
+on:
   push:
-    branches: [ main ]
+    branches: [main]
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Docker login
-      uses: docker/login-action@master
-      with:
-        username: ${{ secrets.BOT_USER }}
-        password: ${{ secrets.BOT_PASSWORD }} 
-      
-    - name: Docker build
-      run: docker build .
-      
-    - name: Docker push
-      run: docker push ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
-      
-    - name: Replace deployed
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        port: ${{ secrets.HOST_PORT }}
-        username: ${{ secrets.HOST_USER }}
-        password: ${{ secrets.HOST_PASSWORD }}
-        script: |
-          cd /app
-          docker-compose down
-          docker rmi ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
-          docker-compose up --detach
+      - uses: actions/checkout@v2
+
+      - name: Docker login
+        uses: docker/login-action@master
+        with:
+          username: ${{ secrets.BOT_USER }}
+          password: ${{ secrets.BOT_PASSWORD }}
+
+      - name: Docker build
+        run: docker build .
+
+      - name: Docker push
+        run: docker push ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+
+      - name: Replace deployed
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.HOST_PORT }}
+          username: ${{ secrets.HOST_USER }}
+          password: ${{ secrets.HOST_PASSWORD }}
+          script: |
+            cd /app
+            docker-compose down
+            docker rmi ${{ secrets.GITHUB_BOT_USER }}/steam-visuals
+            docker-compose up --detach

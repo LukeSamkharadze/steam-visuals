@@ -1,5 +1,5 @@
 services:
-  server: 
+  server:
     image: lukesamkharadze/steam-visuals
     restart: always
     ports:

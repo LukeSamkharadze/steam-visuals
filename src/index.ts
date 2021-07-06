@@ -1,9 +1,9 @@
 import express from "express";
 
 const app = express();
-const port = 8080;
+const port = 80;
 
-app.get("/", (request, respond) => {
+app.get("/", (_request: unknown, respond: { send: (arg0: string) => unknown }) => {
   respond.send("Hello world!");
 });
 
