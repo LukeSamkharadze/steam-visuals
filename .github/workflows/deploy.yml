@@ -10,8 +10,8 @@ jobs:
     
     - name: Docker login
       env:
-        DOCKER_USER: ${{ secrets.GITHUB_BOT_USER }}
-        DOCKER_PASSWORD: ${{ secrets.GITHUB_BOT_PASSWORD }}
+        DOCKER_USER: ${{ secrets.BOT_USER }}
+        DOCKER_PASSWORD: ${{ secrets.BOT_PASSWORD }}
       run: docker login ghcr.io -u $DOCKER_USER -p $DOCKER_PASSWORD 
       
     - name: Docker build
