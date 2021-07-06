@@ -30,5 +30,5 @@ jobs:
         script: |
           cd /app
           docker-compose down
-          docker rmi ${{secrets.GITHUB_BOT_USER}}/steam-visuals
+          docker rmi ${{secrets.REGISTRY_USER}}/steam-visuals
           docker-compose up --detach
