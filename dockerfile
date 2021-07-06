@@ -1,10 +1,10 @@
 FROM node:14
 
-WORKDIR /app
+WORKDIR /steam-visuals
 
 COPY . .
 
-RUN npm install
+RUN npm ci
 
 EXPOSE 8080
 
