@@ -15,10 +15,10 @@ jobs:
         password: ${{ secrets.REGISRTY_PASSWORD }} 
       
     - name: Docker build
-      run: docker build . -t ${{ secrets.REGISRTY_USER }}/steam-visuals
+      run: docker build . -t ${{ secrets.REGISRTY_USER }}/${{ github.event.repository.name }}
       
     - name: Docker push
-      run: docker push ${{ secrets.REGISRTY_USER }}/steam-visuals
+      run: docker push ${{ secrets.REGISRTY_USER }}/${{ github.event.repository.name }}
       
     - name: Replace deployed
       uses: appleboy/ssh-action@master
@@ -28,7 +28,7 @@ jobs:
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         script: |
-          cd /app
+          cd /${{ github.event.repository.name }}
           docker-compose down
-          docker rmi ${{secrets.REGISTRY_USER}}/steam-visuals
+          docker rmi ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
           docker-compose up --detach
