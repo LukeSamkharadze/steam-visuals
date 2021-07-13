@@ -1,26 +1,28 @@
-name: Deploy
+name: deploy
+
 on:
   push:
     branches: main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     
-    - name: Docker login
+    - name: docker login
       uses: docker/login-action@master
       with:
         username: ${{ secrets.REGISTRY_USER }}
         password: ${{ secrets.REGISRTY_PASSWORD }} 
       
-    - name: Docker build
+    - name: docker build
       run: docker build . -t ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
       
-    - name: Docker push
+    - name: docker push
       run: docker push ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
       
-    - name: Replace deployed
+    - name: replace
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST_DOMAIN }}
@@ -28,7 +30,7 @@ jobs:
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         script: |
-          cd /${{ github.event.repository.name }}
+          cd server/${{ github.event.repository.name }}
           docker-compose down
           docker rmi ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
           docker-compose up --detach
