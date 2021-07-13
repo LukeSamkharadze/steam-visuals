@@ -30,7 +30,7 @@ jobs:
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASSWORD }}
         script: |
-          cd server/${{ github.event.repository.name }}
+          cd /server/${{ github.event.repository.name }}
           docker-compose down
           docker rmi ${{ secrets.REGISTRY_USER }}/${{ github.event.repository.name }}
           docker-compose up --detach
