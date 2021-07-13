@@ -2,9 +2,11 @@ FROM node:14
 
 WORKDIR /steam-visuals
 
-COPY . .
+COPY package*.json .
 
 RUN npm ci
+
+COPY . .
 
 EXPOSE 80
 
